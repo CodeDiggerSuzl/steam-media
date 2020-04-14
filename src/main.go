@@ -1,13 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
 
 func main() {
-	fmt.Println("Hello stream media")
-	fmt.Println("js")
-	print(10)
+ 	http.HandleFunc("/",firstpage)
+	http.ListenAndServe(":8080",nil)
 }
-func print(i int) int {
-	fmt.Println(i)
-	return i
+func firstpage(w http.ResponseWriter,r *http.Request){
+	fmt.Println(r)
+	io.WriteString(w,"<h1>My stream media</h1>")
 }
