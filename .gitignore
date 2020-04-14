@@ -1,0 +1,6 @@
+bin/
+pkg/
+.vscode/
+*.mod
+.idea
+*.imlgg
