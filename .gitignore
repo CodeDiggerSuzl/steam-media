@@ -3,4 +3,5 @@ pkg/
 .vscode/
 *.mod
 .idea
-*.imlgg
+*.iml
+go.sum
