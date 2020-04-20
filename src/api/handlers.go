@@ -16,5 +16,4 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func UserLogin(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	uName := p.ByName("user_name")
 	io.WriteString(w, uName)
-
 }

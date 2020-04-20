@@ -85,8 +85,53 @@ Source is user.
 | Post One Comment   | `/video/vid-id/comments`            | POST   | 201,400,500         |
 | Delete One Comment | `/video/vid-id/comments/comment-id` | DELETE | 204,400,401,403,500 |
 
-### User API details
+## DB
+
+### Table
+
+SQL to create create tables
+```sql
+CREATE TABLE IF NOT EXISTS `users`(
+ `id` INT UNSIGNED AUTO_INcrement,
+ `login_name` VARCHAR(64) UNIQUE KEY,
+ `password` TEXT ,
+ PRIMARY KEY(`id`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `video_info`(
+`id` VARCHAR(64) NOT NULL,
+`author_id` INT UNSIGNED,
+`name` TEXT,
+`display_ctime` TEXT,
+`create_time` DATETIME,
+PRIMARY KEY(`id`)
+)
+
+CREATE TABLE IF NOT EXISTS `comments`(
+`id` VARCHAR(64) NOT NULL,
+`video_id` INT UNSIGNED,
+`content` TEXT,
+`time` DATETIME,
+PRIMARY KEY(`id`)
+)
+
+CREATE TABLE IF NOT EXISTS `sessions`(
+`session_id` VARCHAR(64) NOT NULL,
+`TTL` TINYTEXT,
+`login_name` DATETIME,
+PRIMARY KEY(`session_id`)
+)
+```
+
+![](https://tva1.sinaimg.cn/large/007S8ZIlly1ge0kb4kt7ej30me0io434.jpg)
+
+### Use mysql
+Use the [go-sql-driver](https://github.com/Go-SQL-Driver/MySQL/) to connect to the sever.
+
+
 #### Project tree
 
 router usage
-- [ ] RESTful and RESTful alike api
+- [ ] RESTful and RESTful-like api.
+- [ ] Database three paradigm

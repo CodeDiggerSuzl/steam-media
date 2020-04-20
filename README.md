@@ -43,3 +43,7 @@ To the cloud:
 ## Getting started
 
 ### Architecture of the stream-media website
+
+
+- [ ] [a another golang server](https://blog.csdn.net/qq_44291044/article/details/99703150)
+- [ ] [note](https://alanhou.org/golang-video-streaming/)
