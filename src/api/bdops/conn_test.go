@@ -31,3 +31,11 @@ func TestDBConn(t *testing.T) {
 		return
 	}
 }
+
+func TestConn(t *testing.T) {
+	err := dbConn.Ping()
+	if err != nil {
+		t.Errorf("err %v", err)
+	}
+
+}
