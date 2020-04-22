@@ -6,25 +6,20 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// The global variable in the package
+// *The global variable in the current package.
 var (
 	dbConn *sql.DB
 	err    error
 )
 
-// DbWorker for db
-type DbWorker struct {
-	// mysql data source name
-	DSN string
-}
+// 	defer dbConn.Close()
+// ! init function is a special func
+// * https://zhuanlan.zhihu.com/p/34211611
 
-func initDBConn() {
-	dbWorker := DbWorker{DSN: "root:mysql@suz1@tcp(127.0.0.1:3306)/stream_video_server"}
-	dbConn, err = sql.Open("mysql", dbWorker.DSN)
-	err = dbConn.Ping()
+func init() {
+	// ! can't use :=
+	dbConn, err = sql.Open("mysql", "root:mysql@suz1@tcp(127.0.0.1:3306)/stream_video_server")
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
-
-	defer dbConn.Close()
 }

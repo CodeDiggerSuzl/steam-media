@@ -14,7 +14,7 @@ const (
 	password = "mysql@suz1"
 	ip       = "127.0.0.1"
 	port     = "3306"
-	dbName   = "server"
+	dbName   = "stream_video_server"
 )
 
 func TestDBConn(t *testing.T) {
