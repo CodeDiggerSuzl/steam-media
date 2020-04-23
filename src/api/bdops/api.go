@@ -2,6 +2,10 @@ package dbops
 
 import (
 	"log"
+	"stream-media/src/api/defs"
+	"stream-media/src/api/utils"
+	"time"
+
 	// mysql driver
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -45,4 +49,29 @@ func DelUser(loginName string, password string) error {
 	stmtDel.Exec(loginName, password)
 	stmtDel.Close()
 	return nil
+}
+
+// video related apis
+
+// AddNewVideo add new video_info into db
+func AddNewVideo(authorID string, password string) (*defs.VideoInfo, error) {
+	// create UUID
+	vID, err := utils.GenerateUUID()
+	if err != nil {
+		return nil, err
+	}
+	t := time.Now()
+	// Can't change the exact time
+	createTime := t.Format("Jan 02 2006, 15:04:05")
+	stmtInsert, err := dbConn.Prepare("INSERT INTO video_info (id,author_id,name,display_ctime)VALUES(?,?,?,?)")
+	defer stmtInsert.Close()
+	if err != nil {
+		return nil, err
+	}
+	_, err := stmtInsert.Exec(vID, authorID, name, createTime)
+	if err != nil {
+		return nil, err
+	}
+	res := &defs.VideoInfo{ID: vID, AuthorID: authorID, Name: name, DisplayCreateTime: ctime}
+	return res, nil
 }

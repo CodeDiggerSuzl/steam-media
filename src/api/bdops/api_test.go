@@ -25,6 +25,11 @@ func TestUserWorkFlow(t *testing.T) {
 	t.Run("ReGetUser", testReGetUser)
 }
 
+func TestVideoWorkFlow(t *testing.T) {
+	clearTables()
+	t.run("Prepare", testAddUser)
+}
+
 func testAddUser(t *testing.T) {
 	err := AddUserCredential("Joey", "food")
 	if err != nil {
