@@ -1,6 +1,7 @@
 package dbops
 
 import (
+	"database/sql"
 	"log"
 	"stream-media/src/api/defs"
 	"stream-media/src/api/utils"
@@ -54,7 +55,7 @@ func DelUser(loginName string, password string) error {
 // video related apis
 
 // AddNewVideo add new video_info into db
-func AddNewVideo(authorID string, password string) (*defs.VideoInfo, error) {
+func AddNewVideo(authorID int, name string) (*defs.VideoInfo, error) {
 	// create UUID
 	vID, err := utils.GenerateUUID()
 	if err != nil {
@@ -68,10 +69,50 @@ func AddNewVideo(authorID string, password string) (*defs.VideoInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	_, err := stmtInsert.Exec(vID, authorID, name, createTime)
+	_, err = stmtInsert.Exec(vID, authorID, name, createTime)
 	if err != nil {
 		return nil, err
 	}
-	res := &defs.VideoInfo{ID: vID, AuthorID: authorID, Name: name, DisplayCreateTime: ctime}
+	res := &defs.VideoInfo{ID: vID, AuthorID: authorID, Name: name, DisplayCreateTime: createTime}
 	return res, nil
+}
+
+// GetVideoInfo get video info from db
+func GetVideoInfo(vID string) (*defs.VideoInfo, error) {
+	stmtOut, err := dbConn.Prepare("SELECT author_id, name, display_ctime FROM video_info WHERE id = ?")
+
+	defer stmtOut.Close()
+
+	var (
+		authorID int
+		dct      string
+		name     string
+	)
+	// err = stmtOut.QueryRow(vid).Scan(&aid, &name, &dct)
+	err = stmtOut.QueryRow(vID).Scan(&authorID, &name, &dct)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
+	}
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+
+	res := &defs.VideoInfo{ID: vID, AuthorID: authorID, Name: name, DisplayCreateTime: dct}
+	// res := &defs.VideoInfo{Id: vid, AuthorId: aid, Name: name, DisplayCtime: dct}
+	return res, nil
+}
+
+// DelVideoInfo delete video info by id
+func DelVideoInfo(vID string) error {
+	stmtDel, err := dbConn.Prepare("DELETE FROM video_info WHERE id = ?")
+	defer stmtDel.Close()
+
+	if err != nil {
+		return err
+	}
+	_, err = stmtDel.Exec(vID)
+	if err != nil {
+		return err
+	}
+	return nil
 }

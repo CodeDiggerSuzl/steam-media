@@ -9,7 +9,7 @@ type UserCredential struct {
 // VideoInfo represent for video
 type VideoInfo struct {
 	ID                string
-	AuthorID          string
+	AuthorID          int
 	Name              string
 	DisplayCreateTime string
 }

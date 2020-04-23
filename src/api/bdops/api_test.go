@@ -1,6 +1,12 @@
 package dbops
 
-import "testing"
+import (
+	"testing"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+var testVideoID string
 
 // init(loginDB -> truncate tables)
 // run tests
@@ -23,11 +29,6 @@ func TestUserWorkFlow(t *testing.T) {
 	t.Run("GetUser", testGetUser)
 	t.Run("DeleteUser", testDelUser)
 	t.Run("ReGetUser", testReGetUser)
-}
-
-func TestVideoWorkFlow(t *testing.T) {
-	clearTables()
-	t.run("Prepare", testAddUser)
 }
 
 func testAddUser(t *testing.T) {
@@ -56,5 +57,45 @@ func testReGetUser(t *testing.T) {
 	}
 	if password != "" {
 		t.Errorf("Deleteing user error")
+	}
+}
+
+// unit test for video
+
+func TestVideoWorkFlow(t *testing.T) {
+	clearTables()
+	t.Run("PrepareUser", testAddUser)
+	t.Run("AddVideo", testAddVideoInfo)
+	t.Run("GetVideo", testGetVideoInfo)
+	t.Run("DelVideo", testDeleteVideoInfo)
+	t.Run("ReGetVideo", testReGetVideoInfo)
+}
+
+func testAddVideoInfo(t *testing.T) {
+	vi, err := AddNewVideo(1, "my-video")
+	if err != nil {
+		t.Errorf("Error of AddVideoInfo: %v", err)
+	}
+	testVideoID = vi.ID
+}
+
+func testGetVideoInfo(t *testing.T) {
+	_, err := GetVideoInfo(testVideoID)
+	if err != nil {
+		t.Errorf("Error of GetVideoInfo: %v", err)
+	}
+}
+
+func testDeleteVideoInfo(t *testing.T) {
+	err := DelVideoInfo(testVideoID)
+	if err != nil {
+		t.Errorf("Error of DeleteVideoInfo: %v", err)
+	}
+}
+
+func testReGetVideoInfo(t *testing.T) {
+	vi, err := GetVideoInfo(testVideoID)
+	if err != nil || vi != nil {
+		t.Errorf("Error of ReGetVideoInfo: %v", err)
 	}
 }
