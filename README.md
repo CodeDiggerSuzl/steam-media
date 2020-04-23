@@ -1,5 +1,6 @@
 # Stream-media
 $$Author: Suz1$$
+
 Building a stream video website using golang, like Youku or netflix this kind of stream-media type websites. Unlike the real-time streaming website, like Douyu(which mainly focus on the real-time encode and decode), stream media is just using a stream to play the video.
 
 ## Getting start
