@@ -13,3 +13,17 @@ type VideoInfo struct {
 	Name              string
 	DisplayCreateTime string
 }
+
+// Comment for video comment
+type Comment struct {
+	ID      string
+	Author  string
+	VideoID string
+	Content string
+}
+
+// Session struct
+type Session struct {
+	UserName string
+	TTL      int64 // time to live, use to check if the login info is expired or not
+}

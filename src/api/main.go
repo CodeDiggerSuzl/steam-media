@@ -3,13 +3,12 @@ package main
 import (
 	"net/http"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/julienschmidt/httprouter"
 )
 
 // main func file only put some defs, logic code should put in other files.
 func main() {
-	r := registerHandlers()
+	r := RegisterHandlers()
 	http.ListenAndServe(":8000", r)
 }
 

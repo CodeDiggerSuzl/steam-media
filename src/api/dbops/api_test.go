@@ -1,7 +1,10 @@
 package dbops
 
 import (
+	"fmt"
+	"strconv"
 	"testing"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -32,7 +35,7 @@ func TestUserWorkFlow(t *testing.T) {
 }
 
 func testAddUser(t *testing.T) {
-	err := AddUserCredential("Joey", "food")
+	err := AddUserCredential("Joey", "123")
 	if err != nil {
 		t.Errorf("Error of add user %v", err)
 	}
@@ -60,7 +63,7 @@ func testReGetUser(t *testing.T) {
 	}
 }
 
-// unit test for video
+// unit tests for video
 
 func TestVideoWorkFlow(t *testing.T) {
 	clearTables()
@@ -97,5 +100,37 @@ func testReGetVideoInfo(t *testing.T) {
 	vi, err := GetVideoInfo(testVideoID)
 	if err != nil || vi != nil {
 		t.Errorf("Error of ReGetVideoInfo: %v", err)
+	}
+}
+
+func TestComments(t *testing.T) {
+	clearTables()
+	t.Run("AddUser", testAddUser)
+	t.Run("AddCommnets", testAddComment)
+	t.Run("ListComments", testListComments)
+}
+
+func testAddComment(t *testing.T) {
+	vID := "12345"
+	authorID := 1
+	content := "love it"
+
+	err := AddNewComments(vID, authorID, content)
+	if err != nil {
+		t.Errorf("Error of adding comment: %v", err)
+	}
+}
+
+func testListComments(t *testing.T) {
+	vID := "12345"
+	from := 1514764800
+	to, _ := strconv.Atoi(strconv.FormatInt(time.Now().UnixNano()/1000000000, 10))
+
+	res, err := ListComments(vID, from, to)
+	if err != nil {
+		t.Errorf("Error of listing comments: %v", err)
+	}
+	for i, ele := range res {
+		fmt.Printf("Comments: %d, %v \n", i, ele)
 	}
 }
