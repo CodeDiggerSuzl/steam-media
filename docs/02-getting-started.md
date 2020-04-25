@@ -46,7 +46,7 @@ RESTful API Features
 
 API Design Principle
 - Use URL(Uniform Source Location) style to design the API.
-- USE different method( GET/POST/DELETE/PUT ) to differentiate access to resources(CRUD).
+- USE different method(GET/POST/DELETE/PUT) to differentiate access to resources(CRUD).
 - The status code that returns should meet the requirements of HTTP resource description.
 
 
@@ -67,7 +67,7 @@ Source is user.
 - 204:
 - 401: don't verify user.
 - 403: user's permission denied.
- 
+
 #### API Design: User Videos
 
 | Action           | URL                             | Method | SC                  |
@@ -136,7 +136,7 @@ Use the [go-sql-driver](https://github.com/Go-SQL-Driver/MySQL/) to connect to t
 ### Session
 - What is session?
 
-  http is stateless,need to use session to keep the connect status.
+  http is stateless, need to use session to keep the connect status.
 ˚
 - Use in this project
 
