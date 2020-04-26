@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -27,9 +28,10 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // main func file only put some defs, logic code should put in other files.
 func main() {
 	r := RegisterHandlers()
+	fmt.Println("aaa")
 	// intercept each request
 	middleWareHandler := NewMiddleWareHandler(r)
-	http.ListenAndServe(":8000", middleWareHandler)
+	_ = http.ListenAndServe(":8000", middleWareHandler)
 }
 
 // RegisterHandlers router.
