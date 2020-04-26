@@ -3,7 +3,13 @@ package defs
 // UserCredential Response definition
 type UserCredential struct {
 	UserName string `json:"user_name"`
-	PassWard string `json:"password"`
+	Password string `json:"password"`
+}
+
+// SignedUp status
+type SignedUp struct {
+	Success   bool   `json:"success"`
+	SessionID string `json:"session_id"`
 }
 
 // VideoInfo represent for video

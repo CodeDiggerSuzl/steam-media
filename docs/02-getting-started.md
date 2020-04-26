@@ -132,20 +132,6 @@ Use the [go-sql-driver](https://github.com/Go-SQL-Driver/MySQL/) to connect to t
 
 #### Project tree
 
-
-### Session
-- What is session?
-
-  http is stateless, need to use session to keep the connect status.
-˚
-- Use in this project
-
-  Save the session id of a login, if the session id is nil, need to login again.
-
-- The work flow of session
-
-  ![](https://tva1.sinaimg.cn/large/007S8ZIlly1ge6e9x31uvj310a0n0thx.jpg)
-
 router usage
 - [ ] RESTful and RESTful-like api.
 - [ ] Database three paradigm

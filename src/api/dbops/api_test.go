@@ -16,10 +16,10 @@ var testVideoID string
 // clear tables and truncate tables
 
 func clearTables() {
-	dbConn.Exec("truncate users")
-	dbConn.Exec("truncate video_info")
-	dbConn.Exec("truncate sessions")
-	dbConn.Exec("truncate comments")
+	_, _ = dbConn.Exec("truncate users")
+	_, _ = dbConn.Exec("truncate video_info")
+	_, _ = dbConn.Exec("truncate sessions")
+	_, _ = dbConn.Exec("truncate comments")
 }
 func TestMain(m *testing.M) {
 	// Test main for sub tests.

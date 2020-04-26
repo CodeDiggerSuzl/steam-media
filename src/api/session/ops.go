@@ -14,10 +14,10 @@ import (
  2. Generate a new session id when a new user logins.
  3. Check the session is expired or not, if expired, return a status code to the front end, and the user need to login again.
 
-Don't to use redis, the use is few and mataining a new module can be tricky.
-Use this sync.Map is because the Map is not for concurrent, will panic when more than tow goroutine access the map.
-You need to lock before you access the map.
-Since the 1.9, Go add a sync Map to solve the map. Read is ok, write will add a global lock(TODO).
+ Don't to use redis, the use is few and mataining a new module can be tricky.
+ Use this sync.Map is because the Map is not for concurrent, will panic when more than tow goroutine access the map.
+ You need to lock before you access the map.
+ Since the 1.9, Go add a sync Map to solve the map. Read is ok, write will add a global lock(TODO).
 */
 var sessionMap *sync.Map // cache
 
@@ -68,6 +68,7 @@ func IsSessExpired(sessionID string) (string, bool) {
 	return "", true
 }
 
+// delete the expired session
 func deleteExpiredSession(sessionID string) {
 	sessionMap.Delete(sessionID)
 	dbops.DelSessionByID(sessionID)

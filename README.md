@@ -63,3 +63,7 @@ This might help you to avoid some bugs.
 refs:
 - [ ] [a another golang server](https://blog.csdn.net/qq_44291044/article/details/99703150)
 - [ ] [note](https://alanhou.org/golang-video-streaming/)
+- [ ] http package
+- [ ] sync package
+- [ ] HTTP request body header and so on.
+- [ ] go HTTP programming

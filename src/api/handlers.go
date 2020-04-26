@@ -1,15 +1,40 @@
 package main
 
 import (
+	"encoding/json"
 	"io"
+	"io/ioutil"
 	"net/http"
+	"stream-media/src/api/dbops"
+	"stream-media/src/api/defs"
+	"stream-media/src/api/session"
 
 	"github.com/julienschmidt/httprouter"
 )
 
 // CreateUser handler.
 func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	io.WriteString(w, "Create User function called")
+	res, _ := ioutil.ReadAll(r.Body)
+	uBody := &defs.UserCredential{}
+	// check err
+	if err := json.Unmarshal(res, uBody); err != nil {
+		sendErrorResponse(w, defs.ErrorRequestBodyParseFailed)
+		return
+	}
+
+	if err := dbops.AddUserCredential(uBody.UserName, uBody.Password); err != nil {
+		sendErrorResponse(w, defs.ErrorDBError)
+		return
+	}
+	// Add a new session
+	id := session.GenerateNewSessionID(uBody.UserName)
+	signUp := &defs.SignedUp{Success: true, SessionID: id}
+	resp, err := json.Marshal(signUp)
+	if err != nil {
+		sendErrorResponse(w, defs.ErrorInternalFaults)
+		return
+	}
+	sendNormalResponse(w, string(resp), 201)
 }
 
 // UserLogin handler.
