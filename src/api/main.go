@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -11,6 +11,7 @@ type middleWareHandler struct {
 	r *httprouter.Router
 }
 
+// NewMiddleWareHandler factory
 func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 	m := middleWareHandler{}
 	m.r = r
@@ -21,6 +22,7 @@ func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 // Each request need to check session and do auth things
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// check session
+	log.Printf("ServeHTTP: %v", r)
 	validateUserSession(r) // TODO this func returns a bool
 	m.r.ServeHTTP(w, r)
 }
@@ -28,7 +30,6 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // main func file only put some defs, logic code should put in other files.
 func main() {
 	r := RegisterHandlers()
-	fmt.Println("aaa")
 	// intercept each request
 	middleWareHandler := NewMiddleWareHandler(r)
 	_ = http.ListenAndServe(":8000", middleWareHandler)
@@ -37,7 +38,7 @@ func main() {
 // RegisterHandlers router.
 func RegisterHandlers() *httprouter.Router {
 	router := httprouter.New()
-
+	log.Printf("RegisterHandlers: %v", router)
 	// Create user handler,use closure.
 	router.POST("/user", CreateUser)
 

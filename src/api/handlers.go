@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"stream-media/src/api/dbops"
 	"stream-media/src/api/defs"
@@ -15,6 +16,7 @@ import (
 // CreateUser handler.
 func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	res, _ := ioutil.ReadAll(r.Body)
+	log.Printf("CreateUser: %v", res)
 	uBody := &defs.UserCredential{}
 	// check err
 	if err := json.Unmarshal(res, uBody); err != nil {

@@ -1,6 +1,7 @@
 package session
 
 import (
+	"log"
 	"stream-media/src/api/dbops"
 	"stream-media/src/api/defs"
 	"stream-media/src/api/utils"
@@ -47,8 +48,10 @@ func GenerateNewSessionID(uName string) string {
 	ttl := currentTime + 30*60*1000 // 30 mins
 
 	session := &defs.Session{UserName: uName, TTL: ttl}
-
+	log.Printf("GenerateNewSessionID session : %v", session)
 	sessionMap.Store(id, session)
+	log.Printf("Insert into session %v", session)
+	log.Printf("Insert into sessionMap %v", sessionMap)
 	dbops.InsertSession(id, ttl, uName)
 	return id
 

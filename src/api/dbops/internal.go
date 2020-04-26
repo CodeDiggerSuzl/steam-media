@@ -19,6 +19,7 @@ func InsertSession(sessionID string, ttl int64, userName string) error {
 	}
 	_, err = stmtIns.Exec(sessionID, ttlStr, userName)
 	if err != nil {
+		log.Printf("Err during inserting into session %v", err)
 		return err
 	}
 	return nil
