@@ -67,3 +67,7 @@ refs:
 - [ ] sync package
 - [ ] HTTP request body header and so on.
 - [ ] go HTTP programming
+- [ ] how to debug and how actual it works in enterprise
+- [ ] how to management all packages
+- [ ] how it work in goland
+- [ ] Figure it out how all the code flow

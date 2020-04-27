@@ -15,6 +15,7 @@ func InsertSession(sessionID string, ttl int64, userName string) error {
 	defer stmtIns.Close()
 
 	if err != nil {
+		log.Printf("Error during happens during InsertSession: %v", err)
 		return err
 	}
 	_, err = stmtIns.Exec(sessionID, ttlStr, userName)
@@ -32,11 +33,13 @@ func FetchSessionByID(sessionID string) (*defs.Session, error) {
 	defer stmtOut.Close()
 
 	if err != nil {
+		log.Printf("Error during FetchSessionById: %v", err)
 		return nil, err
 	}
 	var ttl, userName string
 	stmtOut.QueryRow(sessionID).Scan(&ttl, &userName)
 	if err != nil && err != sql.ErrNoRows {
+		log.Printf("Error during FetchSessionById-QueryRow: %v", err)
 		return nil, err
 	}
 
@@ -56,7 +59,7 @@ func FetchAllSessions() (*sync.Map, error) {
 	defer stmtOut.Close()
 
 	if err != nil {
-		log.Printf("%s", err)
+		log.Printf("FetchAllSessions error happens :%v", err)
 		return nil, err
 	}
 
@@ -90,6 +93,7 @@ func DelSessionByID(sid string) error {
 		return err
 	}
 	if _, err := stmtOut.Query(sid); err != nil {
+		log.Printf("Error during DelSessionByID: %v", err)
 		return err
 	}
 	return nil

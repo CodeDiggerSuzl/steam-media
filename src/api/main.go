@@ -38,7 +38,6 @@ func main() {
 // RegisterHandlers router.
 func RegisterHandlers() *httprouter.Router {
 	router := httprouter.New()
-	log.Printf("RegisterHandlers: %v", router)
 	// Create user handler,use closure.
 	router.POST("/user", CreateUser)
 

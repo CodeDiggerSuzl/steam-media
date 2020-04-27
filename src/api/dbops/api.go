@@ -17,6 +17,7 @@ import (
 func AddUserCredential(loginName string, password string) error {
 	stmtIns, err := dbConn.Prepare("INSERT INTO users (login_name,password) VALUES(?,?)")
 	if err != nil {
+		log.Printf("Error during add user credential: %v", err)
 		return err
 	}
 
@@ -30,7 +31,7 @@ func AddUserCredential(loginName string, password string) error {
 func GetUserCredential(loginName string) (string, error) {
 	stmtOut, err := dbConn.Prepare("SELECT password from users WHERE login_name = ?")
 	if err != nil {
-		log.Printf("%s", err)
+		log.Printf("GetUserCredential occurs error: %v", err)
 		return "", err
 	}
 
@@ -44,7 +45,7 @@ func GetUserCredential(loginName string) (string, error) {
 func DelUser(loginName string, password string) error {
 	stmtDel, err := dbConn.Prepare("DELETE FROM users WHERE login_name = ? AND password = ?")
 	if err != nil {
-		log.Printf("%s", err)
+		log.Printf("DelUser occurs error: %v", err)
 		return err
 	}
 	stmtDel.Exec(loginName, password)
@@ -62,11 +63,12 @@ func AddNewVideo(authorID int, name string) (*defs.VideoInfo, error) {
 		return nil, err
 	}
 	t := time.Now()
-	// Can't change the exact time
+	// Can't change the exact time TODO exact time
 	createTime := t.Format("Jan 02 2006, 15:04:05")
 	stmtInsert, err := dbConn.Prepare("INSERT INTO video_info (id,author_id,name,display_ctime)VALUES(?,?,?,?)")
 	defer stmtInsert.Close()
 	if err != nil {
+		log.Printf("AddNewVideo occurs error: %v", err)
 		return nil, err
 	}
 	_, err = stmtInsert.Exec(vID, authorID, name, createTime)
@@ -91,6 +93,7 @@ func GetVideoInfo(vID string) (*defs.VideoInfo, error) {
 	// err = stmtOut.QueryRow(vid).Scan(&aid, &name, &dct)
 	err = stmtOut.QueryRow(vID).Scan(&authorID, &name, &dct)
 	if err != nil && err != sql.ErrNoRows {
+		log.Printf("GetVideoInfo: err during scan video info %v ", err)
 		return nil, err
 	}
 	if err == sql.ErrNoRows {
@@ -112,6 +115,7 @@ func DelVideoInfo(vID string) error {
 	}
 	_, err = stmtDel.Exec(vID)
 	if err != nil {
+		log.Printf("Error during DelVideoInfo %v", err)
 		return err
 	}
 	return nil
@@ -129,6 +133,7 @@ func AddNewComments(vID string, authorID int, content string) error {
 	defer stmtIns.Close()
 	_, err = stmtIns.Exec(commentID, vID, authorID, content)
 	if err != nil {
+		log.Printf("AddNewComments error happens: %v", err)
 		return err
 	}
 	return nil
@@ -146,12 +151,14 @@ func ListComments(vID string, from, to int) ([]*defs.Comment, error) {
 	rows, err := stmtOut.Query(vID, from, to)
 
 	if err != nil {
+		log.Printf("ListComments error %v", err)
 		return res, err
 	}
 
 	for rows.Next() {
 		var id, name, content string
 		if err := rows.Scan(&id, &name, &content); err != nil {
+			log.Printf("ListComments error rows.Next():  %v", err)
 			return res, err
 		}
 		c := &defs.Comment{ID: id, VideoID: vID, Author: name, Content: content}
