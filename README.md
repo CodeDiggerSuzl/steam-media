@@ -47,7 +47,16 @@ To the cloud:
 
 ### Architecture of the stream-media website
 
-# [Bug fix log](./docs/bug-fix-log.md)
+
+### Streaming module
+
+
+
+
+## [Bug fix log](./docs/bug-fix-log.md)
+
+
+##
 
 A bug fix log of me during coding and learning thought this project.
 
