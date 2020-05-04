@@ -24,16 +24,18 @@ func streamingHandler(w http.ResponseWriter, r *http.Request, p httprouter.Param
 		return
 	}
 
-	w.Header().Set("Content_Type", "video/mp4")
+	w.Header().Set("Content-Type", "video/mp4")
 	http.ServeContent(w, r, "", time.Now(), video)
 }
 func uploadHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	// check size
 	r.Body = http.MaxBytesReader(w, r.Body, MAX_UPLOAD_SIZE)
 	if err := r.ParseMultipartForm(MAX_UPLOAD_SIZE); err != nil {
 		log.Printf("Error during upload handler: %v", err)
 		sendErrorResponse(w, http.StatusBadRequest, "File is too large, should less than 100M")
 		return
 	}
+
 	file, _, err := r.FormFile("file")
 	if err != nil {
 		log.Printf("Error during parse file %v", err)
@@ -55,6 +57,6 @@ func uploadHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 }
 
 func testPageHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	t, _ := template.ParseFiles("./video/upload.html")
+	t, _ := template.ParseFiles("./videos/upload.html")
 	t.Execute(w, nil)
 }

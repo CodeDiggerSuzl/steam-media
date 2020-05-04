@@ -8,7 +8,8 @@ type ConnLimiter struct {
 	bucket         chan int
 }
 
-func newConnLimiter(cc int) *ConnLimiter {
+// NewConnLimiter generate new connection limiter
+func NewConnLimiter(cc int) *ConnLimiter {
 	return &ConnLimiter{
 		concurrentConn: cc,
 		bucket:         make(chan int, cc),
@@ -23,11 +24,12 @@ func (c *ConnLimiter) GetConn() bool {
 	}
 	// TODO
 	c.bucket <- -1
+	log.Printf("Did not reach the rate limitation")
 	return true
 }
 
 //ReleaseConn Release Connection
 func (c *ConnLimiter) ReleaseConn() {
 	conn := <-c.bucket
-	log.Printf("Release connection: %v", conn)
+	log.Printf("Release connection: %d", conn)
 }
