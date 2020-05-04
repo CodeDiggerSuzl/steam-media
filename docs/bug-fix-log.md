@@ -68,4 +68,5 @@
 - [ ] 5. The limiter is not working right, opened 4 tabs in chrome and is still did not get the `Too much requests` response, maybe is the http stuff working.
 - [ ] Open a video in Edge is ok, and open the same page in Chrome just can not working,the request just hanging..., HTTP problem ?
 
+    ![](https://tva1.sinaimg.cn/large/007S8ZIlly1geguxs8mpaj30yo08a75h.jpg)
 Need to fix. Ps, the project is not that good.
