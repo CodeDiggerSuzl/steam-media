@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -13,6 +14,7 @@ type middleWareHandler struct {
 
 // NewMiddleWireHandler constructor
 func NewMiddleWireHandler(r *httprouter.Router, cc int) http.Handler {
+	log.Printf("Creating new middle-wire-handler in stream server module")
 	return middleWareHandler{r: r, l: newConnLimiter(cc)}
 }
 
@@ -37,6 +39,7 @@ func RegisterHandlers() *httprouter.Router {
 	router.GET("/videos/:vid-id", streamingHandler)
 	// upload video
 	router.POST("/upload/:vid-id", uploadHandler)
-
+	// TODO
+	router.GET("/testpage", testPageHandler)
 	return router
 }
