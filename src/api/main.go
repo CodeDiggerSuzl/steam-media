@@ -23,7 +23,7 @@ func NewMiddleWareHandler(r *httprouter.Router) http.Handler {
 func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// check session
 	log.Printf("ServeHTTP: %v", r)
-	validateUserSession(r) // TODO this func returns a bool
+	validateUserSession(r) // TODO returns a bool
 	m.r.ServeHTTP(w, r)
 }
 
