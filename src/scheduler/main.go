@@ -7,10 +7,6 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-
-
-
-
 func RegisterHandler() *httprouter.Router{
 
 	router:= httprouter.New()
