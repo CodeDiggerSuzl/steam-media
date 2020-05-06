@@ -48,8 +48,9 @@ To the cloud:
 ### Architecture of the stream-media website
 
 
-### Streaming module
+### [Streaming module](./docs/04-streaming.md)
 
+### [Scheduler]()
 
 
 
