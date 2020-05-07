@@ -23,7 +23,7 @@ type UserPage struct {
 
 func homeHandler(w http.ResponseWriter, r *http.Request, parm httprouter.Params) {
 	userName, err1 := r.Cookie("username")
-	sessionId, err2 := r.Cookie("session")
+	sessionID, err2 := r.Cookie("session")
 
 	if err1 != nil || err2 != nil {
 		p := &HomePage{Name: "joex"}
@@ -35,7 +35,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request, parm httprouter.Params)
 		template.Execute(w, p)
 		return
 	}
-	if len(userName.Value) != 0 && len(sessionId.Value) != 0 {
+	if len(userName.Value) != 0 && len(sessionID.Value) != 0 {
 		http.Redirect(w, r, "/userhome", http.StatusFound)
 		return
 	}
