@@ -6,6 +6,11 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// work flow
+// api save video id to mysql
+// dispatcher query form mysql get video id and send to datachannel
+// executor -> datachannel -> video id -> delete videos
+
 // ReadVideoDeletionRecord page query video delete record
 func ReadVideoDeletionRecord(count int) ([]string, error) {
 	var ids []string

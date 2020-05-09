@@ -8,6 +8,7 @@ import (
 )
 
 func TestRunner(t *testing.T) {
+	// closeure, dispatcher
 	d := func(dc dataChan) error {
 		for i := 0; i < 30; i++ {
 			dc <- i

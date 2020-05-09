@@ -2,7 +2,7 @@ package taskrunner
 
 const (
 	READY_TO_DISPATCH = "d"
-	READ_TO_EXECUTE   = "e"
+	READY_TO_EXECUTE  = "e"
 	CLOSE             = "c"
 
 	VIDEO_PATH = "./videos/"

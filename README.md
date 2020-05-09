@@ -81,3 +81,5 @@ refs:
 - [ ] how to management all packages
 - [ ] how it work in goland
 - [ ] Figure it out how all the code flow
+- [ ] Linux epoll and select
+- [ ] no-blocking with select in golang

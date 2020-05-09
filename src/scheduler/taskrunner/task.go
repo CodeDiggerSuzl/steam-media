@@ -36,7 +36,6 @@ func VideoClearExecutor(dc dataChan) error {
 	errMap := &sync.Map{}
 	var err error
 
-	// TODO
 forloop:
 	for {
 		select {

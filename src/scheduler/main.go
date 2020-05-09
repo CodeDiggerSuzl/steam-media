@@ -7,15 +7,16 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func RegisterHandler() *httprouter.Router{
+// RegisterHandler register handler
+func RegisterHandler() *httprouter.Router {
 
-	router:= httprouter.New()
-	router.GET("/video-delete-record/:vid-id",vidDelRecHandel)
+	router := httprouter.New()
+	router.GET("/video-delete-record/:vid-id", vidDelRecHandel)
 	return router
 }
 
-func main(){
+func main() {
 	go taskrunner.Start()
-	r:=RegisterHandler()
-	http.ListenAndServe(":9001",r)
+	r := RegisterHandler()
+	http.ListenAndServe(":9001", r)
 }
