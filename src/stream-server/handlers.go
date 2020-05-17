@@ -57,6 +57,6 @@ func uploadHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 }
 
 func testPageHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	t, _ := template.ParseFiles("./videos/upload.html")
+	t, _ := template.ParseFiles("../videos/upload.html")
 	t.Execute(w, nil)
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func vidDelRecHandel(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func vidDelRecHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	vid := p.ByName("vid-id")
 	if len(vid) == 0 {
 		sendResp(w, 400, "video id should not be empty")

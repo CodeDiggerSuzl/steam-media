@@ -1,6 +1,10 @@
 package dbops
 
-import "log"
+import (
+	"log"
+	// mysql driver
+	_ "github.com/go-sql-driver/mysql"
+)
 
 // AddVideoDeleteRecord add delete record
 func AddVideoDeleteRecord(vid string) error {

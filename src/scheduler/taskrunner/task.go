@@ -26,6 +26,7 @@ func VideoClearDispatcher(dc dataChan) error {
 	if len(res) == 0 {
 		return errors.New("All tasks finished")
 	}
+	// write all the res to data channel
 	for _, id := range res {
 		dc <- id
 	}
@@ -42,6 +43,8 @@ forloop:
 		case vid := <-dc:
 			// closeure
 			go func(id interface{}) {
+
+				// can't use vid.string duet to the go closeure
 				if err := deleteVideo(id.(string)); err != nil {
 					log.Printf("Error during deleteVideo in VideoClearExecutor: %v", err)
 					errMap.Store(id, err)

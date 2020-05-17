@@ -11,6 +11,7 @@ type Worker struct {
 	runner *Runner
 }
 
+// NewWorker add new worker
 func NewWorker(interval time.Duration, r *Runner) *Worker {
 	return &Worker{
 		ticker: time.NewTicker(interval * time.Second),

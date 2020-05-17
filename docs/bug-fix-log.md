@@ -69,5 +69,5 @@
 - [ ] Open a video in Edge is ok, and open the same page in Chrome just can not working,the request just hanging..., HTTP problem ?
 
     ![](https://tva1.sinaimg.cn/large/007S8ZIlly1geguxs8mpaj30yo08a75h.jpg)
-
+- [ ] 6. Can upload all kinds of files, and will be treated as mp4.
 Need to fix. Ps, the project is not that good.
