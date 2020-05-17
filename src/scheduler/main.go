@@ -9,7 +9,6 @@ import (
 
 // RegisterHandler register handler
 func RegisterHandler() *httprouter.Router {
-
 	router := httprouter.New()
 	router.GET("/video-delete-record/:vid-id", vidDelRecHandler)
 	return router

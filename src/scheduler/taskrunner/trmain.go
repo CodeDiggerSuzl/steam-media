@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Worker for work
 type Worker struct {
 	// ? ptr ?
 	ticker *time.Ticker
@@ -23,14 +24,18 @@ func (w *Worker) startWork() {
 	for {
 		select {
 		case <-w.ticker.C:
-			log.Println("start Work ...")
+			log.Println("Starting to work ...")
 			go w.runner.StartAll()
 		}
 	}
 }
 
+// Start start all work
 func Start() {
+	// ? where is the data chan of the last two method ?
+	// yeah the contrustor is type is a func
 	r := NewRunner(3, true, VideoClearDispatcher, VideoClearExecutor)
-	w := NewWorker(3, r)
+	// 10 seconds
+	w := NewWorker(10, r)
 	go w.startWork()
 }

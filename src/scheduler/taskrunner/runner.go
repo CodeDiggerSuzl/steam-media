@@ -1,7 +1,6 @@
 package taskrunner
 
-import "log"
-
+// Runner def
 type Runner struct {
 	Controller controlChan
 	Error      controlChan
@@ -12,6 +11,7 @@ type Runner struct {
 	Executor   fn
 }
 
+// NewRunner constructor
 func NewRunner(size int, longLived bool, d fn, e fn) *Runner {
 	return &Runner{
 		// with buffer channel
@@ -25,6 +25,7 @@ func NewRunner(size int, longLived bool, d fn, e fn) *Runner {
 	}
 }
 
+// StartAll start all tasks
 func (r *Runner) StartAll() {
 	// if don't send something to the channel, it will stuck HERE
 	r.Controller <- READY_TO_DISPATCH
@@ -51,7 +52,7 @@ func (r *Runner) startDisPatch() {
 			if c == READY_TO_DISPATCH {
 				err := r.Dispatcher(r.Data)
 				if err != nil {
-					log.Printf("Error during select READ_TO_DISPATCH: %v", err)
+					// log.Printf("Error during select READ_TO_DISPATCH: %v", err)
 					r.Error <- CLOSE
 				} else {
 					r.Controller <- READY_TO_EXECUTE
