@@ -50,7 +50,7 @@ To the cloud:
 
 ### [Streaming module](./docs/04-streaming.md)
 
-### [Scheduler]()
+### [Scheduler](./docs/05-Scheduler.md)
 
 
 
