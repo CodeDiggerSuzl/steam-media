@@ -57,7 +57,6 @@ To the cloud:
 ## [Bug fix log](./docs/bug-fix-log.md)
 
 
-##
 
 A bug fix log of me during coding and learning thought this project.
 
