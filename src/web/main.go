@@ -15,16 +15,18 @@ func main() {
 func RegisterHandler() *httprouter.Router {
 	router := httprouter.New()
 	router.GET("/", homeHandler)
+	// for log out action and stuff
 	router.POST("/", homeHandler)
 
-	router.GET("/homepage", userHomeHandler)
-	router.POST("/homepage", userHomeHandler)
+	router.GET("/userhome", userHomeHandler)
+	router.POST("/userhome", userHomeHandler)
 
 	router.POST("/api", apiHandler)
 
 	router.POST("/upload/:vid-id", proxyHandler)
 
-	router.ServeFiles("/statics/*filepath", http.Dir("../templates"))
+	// warper of http.files
+	router.ServeFiles("/statics/*filepath", http.Dir("./templates"))
 
 	return router
 }

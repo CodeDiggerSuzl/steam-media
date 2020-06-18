@@ -13,10 +13,12 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
+// HomePage template of home page html to replace
 type HomePage struct {
 	Name string
 }
 
+// UserPage to replace in user page files
 type UserPage struct {
 	Name string
 }
@@ -27,11 +29,12 @@ func homeHandler(w http.ResponseWriter, r *http.Request, parm httprouter.Params)
 
 	if err1 != nil || err2 != nil {
 		p := &HomePage{Name: "joex"}
-		template, err := template.ParseFiles("../templates/home.html")
+		template, err := template.ParseFiles("./templates/home.html")
 		if err != nil {
 			log.Printf("Error during parseing html files: %v", err)
 			return
 		}
+		// execute the files
 		template.Execute(w, p)
 		return
 	}
@@ -42,11 +45,14 @@ func homeHandler(w http.ResponseWriter, r *http.Request, parm httprouter.Params)
 }
 
 func userHomeHandler(w http.ResponseWriter, r *http.Request, parm httprouter.Params) {
-
+	// get username from cookie
 	userName, err1 := r.Cookie("username")
+
 	_, err2 := r.Cookie("session")
 
 	if err1 != nil || err2 != nil {
+		log.Printf("Error during get user info :%v,%v", err1, err2)
+		// relative url
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
 	}
@@ -58,7 +64,7 @@ func userHomeHandler(w http.ResponseWriter, r *http.Request, parm httprouter.Par
 	} else if len(fname) != 0 {
 		p = &UserPage{Name: fname}
 	}
-	t, err := template.ParseFiles("../templates/userhome.html")
+	t, err := template.ParseFiles("./templates/userhome.html")
 	if err != nil {
 		log.Printf("Error during parsing userhome: %v", err)
 		return
@@ -66,6 +72,7 @@ func userHomeHandler(w http.ResponseWriter, r *http.Request, parm httprouter.Par
 	t.Execute(w, p)
 }
 
+// request to api handler
 func apiHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	if r.Method != http.MethodPost {
 		req, _ := json.Marshal(ErrorRequestNotRecognized)
@@ -83,8 +90,11 @@ func apiHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	request(apiBody, w, r)
 }
 
+// cross origin resource sharing, using proxy, avoid cross origin
 func proxyHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	// parsing the final url
 	u, _ := url.Parse("http://127.0.0.1:9000/")
+	// httputil to generate a new replace the origin url, will not change the headers
 	proxy := httputil.NewSingleHostReverseProxy(u)
 	proxy.ServeHTTP(w, r)
 }

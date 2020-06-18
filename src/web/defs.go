@@ -1,6 +1,8 @@
 package main
 
+// ApiBody for request to api
 type ApiBody struct {
+	// Url for url
 	Url     string `json:"url"`
 	Method  string `json:"method"`
 	ReqBody string `json:"req_body"`
